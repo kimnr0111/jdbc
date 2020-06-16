@@ -32,22 +32,34 @@ public class BookSelectALLTest {
 			System.out.println("접속성공");
 
 		    // 3. SQL문 준비 / 바인딩 / 실행
-			String quary = "";
-			quary += " select *";
-			quary += " from book";
-			pstmt = conn.prepareStatement(quary);
+			String query = "";
+			query += " select bo.book_id, ";
+			query += "        bo.title, ";
+			query += "        bo.pubs, ";
+			query += "        to_char(bo.pub_date, 'YYYY-MM-DD') pub_date, ";
+			query += "        au.author_id, ";
+			query += "        au.author_name, ";
+			query += "        au.author_desc ";
+			query += " from book bo, author au ";
+			query += " where bo.author_id = au.author_id ";
+			
+			pstmt = conn.prepareStatement(query);
 
 			rs = pstmt.executeQuery();	//select
 
 		    // 4.결과처리
 			while(rs.next()) {
 				int bookId = rs.getInt("book_id");
-				String title = rs.getString("title");
-				String pubs = rs.getString("pubs");
-				String pubDate = rs.getString("pub_date");
+				String booktitle = rs.getString("title");
+				String bookpubs = rs.getString("pubs");
+				String bookpubDate = rs.getString("pub_date");
 				int authorId = rs.getInt("author_id");
+				String authorName = rs.getString("author_name");
+				String authorDesc = rs.getString("author_desc");
 				
-				System.out.println(bookId + "\t" + title + "\t" + pubs + "\t" + pubDate + "\t" + authorId);
+				System.out.println(bookId + "\t" + booktitle + "\t" + bookpubs + 
+						"\t" + bookpubDate + "\t" + authorId + "\t" + authorName +
+						"\t" + authorDesc);
 			}
 
 		} catch (ClassNotFoundException e) {
