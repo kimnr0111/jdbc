@@ -45,7 +45,7 @@ public class BookSelectALLTest {
 				String title = rs.getString("title");
 				String pubs = rs.getString("pubs");
 				String pubDate = rs.getString("pub_date");
-				String authorId = rs.getString("author_id");
+				int authorId = rs.getInt("author_id");
 				
 				System.out.println(bookId + "\t" + title + "\t" + pubs + "\t" + pubDate + "\t" + authorId);
 			}
